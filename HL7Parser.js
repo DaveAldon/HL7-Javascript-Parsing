@@ -4,7 +4,8 @@ function parseHL7(raw, target) {
 	var master = [];
 	
 	// This will turn the hl7 into an array seperated by our categories, however in order to keep the categories they stay in their own element
-	var tokens = hl7.split(new RegExp('('+separators.join('|')+')'));
+	var tokens = hl7.split(new RegExp('('+separators.join('\\||')+'\\|)'));
+
 	// Remove first element which is empty
 	tokens.shift()
 
@@ -15,7 +16,6 @@ function parseHL7(raw, target) {
 	});
 	// Remove empty values
 	master = master.filter(Boolean);
-	
 	// Now that master is populated, we can iterate over it and form the table
 	var inHTML = "";
 	$.each(master, function(index, value){
@@ -26,14 +26,14 @@ function parseHL7(raw, target) {
 		// Creating the sub rows
 		$.each(fields, function(subindex, subvalue){
 			try {
-				subdetail += "<tr><td>"+ segmentName + "-" + (subindex+1) + " " + dictionary[segmentName][subindex + 1] + "</td>" +
+				subdetail += "<tr><td class='nowrapDetail'>"+ segmentName + "-" + (subindex+1) + ": " + dictionary[segmentName][subindex + 1] + "</td>" +
 				"<td>"+ subvalue + "</td>" +
 				"</tr>"
 			}
 			catch(e) {}
 		});
 		// Header row
-		var newItem = '<tr class="header"><td colspan="2">'+value+'</td></tr>'
+		var newItem = '<tr class="header"><td colspan="2">'+segmentName+'</td></tr>'
 	    newItem += subdetail
 	    inHTML += newItem;
 	});
