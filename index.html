@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="HL7Parser.js"></script>
+		<title>HL7 Parsing Demo</title>
+	</head>
+	<body>
+		<button id="hl7btn">Parse HL7</button>
+		<table id="content"></table>
+	</body>
+</html>
+<script>
+	// Invoking the parser
+	$('#hl7btn').click(function() {
+		var hl7 = "MSH|^~\&|SENDING_APPLICATION|SENDING_FACILITY|RECEIVING_APPLICATION|RECEIVING_FACILITY|20110613061611||SIU^S12|24916560|P|2.3||||||"+
+		"PID|1||42||BEEBLEBROX^ZAPHOD||19781012|M|||1 Heart of Gold ave^^Fort Wayne^IN^46804||(260)555-1234|||S||999999999|||||||||||||||||||||"+
+		"PV1|1|O|||||1^Adams^Douglas^A^MD^^^^|2^Colfer^Eoin^D^MD^^^^||||||||||||||||||||||||||||||||||||||||||99158||"
+
+		parseHL7(hl7, '#content')
+	});
+
+	// Example for making the headers interactive
+	$('#content').on('click', 'tr.header', function (e) {
+		$(this).nextUntil('tr.header').css('display', function(i,v) {
+		    return this.style.display === 'table-row' ? 'none' : 'table-row';
+		});
+	});
+</script>
+<style>
+	tr.header {
+		background-color: #373737;
+		color: white
+	}
+	tr.header:hover {
+		background-color: #212121;
+		color: white
+	}
+	td {
+		text-align: left;
+  	border: 1px solid #999999;
+	}
+</style>
