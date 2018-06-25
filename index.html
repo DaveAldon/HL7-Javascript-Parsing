@@ -24,7 +24,7 @@
 	// Example for making the headers interactive
 	$('#content').on('click', 'tr.header', function (e) {
 		$(this).nextUntil('tr.header').css('display', function(i,v) {
-		    return this.style.display === 'table-row' ? 'none' : 'table-row';
+		    return this.style.display === 'none' ? 'table-row' : 'none';
 		});
 	});
 </script>
