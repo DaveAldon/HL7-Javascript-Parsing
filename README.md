@@ -22,7 +22,7 @@ parseHL7(hl7, '#content')
 And you'll have a table that breaks down your HL7 into something human readable.
 
 ## Limitations
-Many common HL7 categories are supported, but some are not. They will be added as the needs arises.
+Many common HL7 categories are supported, but some are not. They will be added as the need arises.
 
 ## Development
 You can do some cool things once the HL7 is parsed out. For example, the demo included in this repo demonstrates how to make the table collapsible according to each HL7 header by adding this to your javascript:
