@@ -24,14 +24,21 @@ function parseHL7(raw, target) {
 		var segmentName = fields[0]
 		fields.shift()
 		// Creating the sub rows
-		$.each(fields, function(subindex, subvalue){
+		for(var i = 0; i < fields.length; i++) {
+			var subvalue = fields[i];
 			try {
-				subdetail += "<tr><td class='nowrapDetail'>"+ segmentName + "-" + (subindex+1) + ": " + dictionary[segmentName][subindex + 1] + "</td>" +
+				if((segmentName == "MSH") && (i == 0)) {
+					subvalue = "|";
+				}
+				else if(segmentName == "MSH") {
+					subvalue = fields[i-1];
+				}
+				subdetail += "<tr><td class='nowrapDetail'>"+ segmentName + "-" + (i+1) + ": " + dictionary[segmentName][i + 1] + "</td>" +
 				"<td>"+ subvalue + "</td>" +
 				"</tr>"
 			}
 			catch(e) {}
-		});
+		}
 		// Header row
 		var newItem = '<tr class="header"><td colspan="2">'+segmentName+'</td></tr>'
 	    newItem += subdetail
