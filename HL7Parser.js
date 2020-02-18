@@ -27,9 +27,11 @@ function parseHL7(raw, target) {
 		for(var i = 0; i < fields.length; i++) {
 			var subvalue = fields[i];
 			try {
+				// Hard-code pipe value
 				if((segmentName == "MSH") && (i == 0)) {
 					subvalue = "|";
 				}
+				// Subtract the index so that they're shifted correctly for MSH
 				else if(segmentName == "MSH") {
 					subvalue = fields[i-1];
 				}
